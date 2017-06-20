@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="left">
+      <h1><strong>Productos</strong></h1>
+    </div>
+    <div class="right">
+      <%= form_tag(new_product_path, method: "get") do %>
+        <%= submit_tag("Nuevo Producto", class: 'btn btn-primary') %>
+      <% end %>
+    </div>
+    <table class="table table-condensed">
+      <thead>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Categorías</th>
+      </thead>
+      <tbody>
+        <%@products.each do |product|%>
+          <tr>
+            <td><%=product.name%></td>
+            <td><%=product.price%></td>              <%cat = ''%>
+            <%product.categories.each do |category|%>
+              <%cat += "#{category.name} "%>
+              <%end%>
+              <td><%=cat%></td>
+              <td>
+                <%= link_to "Editar".html_safe, edit_product_path(product), class: "edit-room-btn" %>
+                <%= link_to "Eliminar".html_safe, product, method: :delete, data: { confirm: "¿Estás seguro de eliminar este producto?" }%>
+              </td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
